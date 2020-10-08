@@ -6,7 +6,8 @@ image_number = 0
 image_type_input = None
 blur = 6
 frame = False
-background = None
+background = Image.open("frame.png")
+background2 = Image.open("frame.png") 
 
 def proportional_value(size_proportional, size_resize, size_new ):
    return int((size_proportional * size_new) / size_resize)
@@ -71,9 +72,10 @@ print("\nEl tamaño total de la imagen (ejemplo: si va a ser de 10x10 ponga 10)"
 size = cm_pixel * int(input("Ingrese valor: "))
 
 image_number = int(input("Ingrese la cantidad de imagenes: "))
-print(frame)
+
 if frame:
    background = Image.new("RGBA",(size,size),"white")
+   background2 =  background2.resize((size,size))
    size -= int((cm_pixel*2)*(int(size/118))/10) # realizo esta cuenta para que su reduccion sea proporcional realizando reiglade 3 simples
 
 for i in range(image_number):
@@ -85,6 +87,7 @@ for i in range(image_number):
       x_center = int((background.size[0]-size)/2)
       y_center = int(((background.size[1]-size)/2)-int((cm_pixel/2)*(int(size/118))/10))
       background.paste(img,(x_center,y_center))
+      background.paste(background2,(0,0),background2)
       background.save("new_" + str(name)+".png", "PNG")
    else:
       img.save("new_" + str(name)+".png", "PNG")
